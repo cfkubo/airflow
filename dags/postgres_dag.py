@@ -45,13 +45,13 @@ def ProcessEmployees():
 
     @task
     def get_data():
-        # NOTE: configure this as appropriate for your airflow environment
-        data_path = "/opt/airflow/dags/files/employees.csv"
+        data_path = "/Users/avannala/airflow/dags/files/employees.csv"
         os.makedirs(os.path.dirname(data_path), exist_ok=True)
 
         url = "https://raw.githubusercontent.com/apache/airflow/main/airflow-core/docs/tutorial/pipeline_example.csv"
 
-        response = requests.request("GET", url)
+        # Add `verify=False` to the request
+        response = requests.request("GET", url, verify=False)
 
         with open(data_path, "w") as file:
             file.write(response.text)
